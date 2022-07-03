@@ -235,11 +235,11 @@ caption: `
 ⭓ Channel : ${anu.author.url}
 ⭓ Description : ${anu.description}
 ⭓ Url : ${anu.url}`,
-footer: kimimaru.user.name,
+footer: conn.user.name,
 buttons: buttons,
 headerType: 4
 }
-kimimaru.sendMessage(m.chat, buttonMessage, { quoted: m })
+conn.sendMessage(m.chat, buttonMessage, { quoted: m })
 }
 break
 case 'ytmp3': case 'ytaudio': {
@@ -249,8 +249,8 @@ if (!text) throw `Example : ${prefix + command} https://youtube.com/watch?v=PtFM
 let quality = args[1] ? args[1] : '128kbps'
 let media = await yta(text, quality)
 if (media.filesize >= 1000000) return reply('File Melebihi Batas '+util.format(media))
-kimimaru.sendImage(m.chat, media.thumb, `⭓ Title : ${media.title}\n⭓ File Size : ${media.filesizeF}\n⭓ Url : ${isUrl(text)}\n⭓ Ext : MP3\n⭓ Resolusi : ${args[1] || '128kbps'}`, m)
-kimimaru.sendMessage(m.chat, { audio: { url: media.dl_link }, mimetype: 'audio/mpeg', fileName: `${media.title}.mp3` }, { quoted: m })
+conn.sendImage(m.chat, media.thumb, `⭓ Title : ${media.title}\n⭓ File Size : ${media.filesizeF}\n⭓ Url : ${isUrl(text)}\n⭓ Ext : MP3\n⭓ Resolusi : ${args[1] || '128kbps'}`, m)
+conn.sendMessage(m.chat, { audio: { url: media.dl_link }, mimetype: 'audio/mpeg', fileName: `${media.title}.mp3` }, { quoted: m })
 }
 break
 case 'ytmp4': case 'ytvideo': {
@@ -260,7 +260,7 @@ if (!text) throw `Example : ${prefix + command} https://youtube.com/watch?v=PtFM
 let quality = args[1] ? args[1] : '360p'
 let media = await ytv(text, quality)
 if (media.filesize >= 100000) return reply('File Melebihi Batas '+util.format(media))
-kimimaru.sendMessage(m.chat, { video: { url: media.dl_link }, mimetype: 'video/mp4', fileName: `${media.title}.mp4`, caption: `⭓ Title : ${media.title}\n⭓ File Size : ${media.filesizeF}\n⭓ Url : ${isUrl(text)}\n⭓ Ext : MP3\n⭓ Resolusi : ${args[1] || '360p'}` }, { quoted: m })
+conn.sendMessage(m.chat, { video: { url: media.dl_link }, mimetype: 'video/mp4', fileName: `${media.title}.mp4`, caption: `⭓ Title : ${media.title}\n⭓ File Size : ${media.filesizeF}\n⭓ Url : ${isUrl(text)}\n⭓ Ext : MP3\n⭓ Resolusi : ${args[1] || '360p'}` }, { quoted: m })
 }
 break
 case 'stickerwm': case 'swm': case 'stikerwm': {
