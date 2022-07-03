@@ -316,6 +316,7 @@ case 'menu-all': {
 │• ${prefix}stikerwm
 │• ${prefix}take
 │
+│ 「 DOWNLOADER MENU 」
 │• ${prefix}play
 │• ${prefix}ytmp3
 │• ${prefix}ytmp4
