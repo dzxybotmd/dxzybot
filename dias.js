@@ -212,6 +212,74 @@ throw `Kirim Gambar/Video Dengan Caption ${prefix + command}\nDurasi Video 1-9 D
 }
 }
 break
+case 'toimage': case 'toimg': {
+            if (!quoted) throw 'Reply Image'
+            if (!/webp/.test(mime)) throw `Balas sticker dengan caption *${prefix + command}*`
+            
+            let media = await conn.downloadAndSaveMediaMessage(quoted)
+            let ran = await getRandom('.png')
+            exec(`ffmpeg -i ${media} ${ran}`, (err) => {
+            fs.unlinkSync(media)
+            if (err) throw err
+            let buffer = fs.readFileSync(ran)
+            conn.sendMessage(m.chat, { image: buffer }, { quoted: m })
+            fs.unlinkSync(ran)
+            })
+            }
+            break
+            case 'tomp4': case 'tovideo': {
+            if (!quoted) throw 'Reply Image'
+            if (!/webp/.test(mime)) throw `balas stiker dengan caption *${prefix + command}*`
+            
+            let { webp2mp4File } = require('./lib/uploader')
+            let media = await conn.downloadAndSaveMediaMessage(quoted)
+            let webpToMp4 = await webp2mp4File(media)
+            await conn.sendMessage(m.chat, { video: { url: webpToMp4.result, caption: 'Convert Webp To Video' } }, { quoted: m })
+            await fs.unlinkSync(media)
+            }
+            break
+            case 'toaud': case 'toaudio': {
+            if (!/video/.test(mime) && !/audio/.test(mime)) throw `Kirim/Reply Video/Audio Yang Ingin Dijadikan Audio Dengan Caption ${prefix + command}`
+            if (!quoted) throw `Kirim/Reply Video/Audio Yang Ingin Dijadikan Audio Dengan Caption ${prefix + command}`
+            
+            let media = await quoted.download()
+            let { toAudio } = require('./lib/converter')
+            let audio = await toAudio(media, 'mp4')
+            conn.sendMessage(m.chat, {audio: audio, mimetype: 'audio/mpeg'}, { quoted : m })
+            }
+            break
+            case 'tomp3': {
+            if (/document/.test(mime)) throw `Kirim/Reply Video/Audio Yang Ingin Dijadikan MP3 Dengan Caption ${prefix + command}`
+            if (!/video/.test(mime) && !/audio/.test(mime)) throw `Kirim/Reply Video/Audio Yang Ingin Dijadikan MP3 Dengan Caption ${prefix + command}`
+            if (!quoted) throw `Kirim/Reply Video/Audio Yang Ingin Dijadikan MP3 Dengan Caption ${prefix + command}`
+            
+            let media = await quoted.download()
+            let { toAudio } = require('./lib/converter')
+            let audio = await toAudio(media, 'mp4')
+            conn.sendMessage(m.chat, {document: audio, mimetype: 'audio/mpeg', fileName: `Convert By ${conn.user.name}.mp3`}, { quoted : m })
+            }
+            break
+            case 'tovn': case 'toptt': {
+            if (!/video/.test(mime) && !/audio/.test(mime)) throw `Reply Video/Audio Yang Ingin Dijadikan VN Dengan Caption ${prefix + command}`
+            if (!quoted) throw `Reply Video/Audio Yang Ingin Dijadikan VN Dengan Caption ${prefix + command}`
+            
+            let media = await quoted.download()
+            let { toPTT } = require('./lib/converter')
+            let audio = await toPTT(media, 'mp4')
+            conn.sendMessage(m.chat, {audio: audio, mimetype:'audio/mpeg', ptt:true }, {quoted:m})
+            }
+            break
+            case 'togif': {
+            if (!quoted) throw 'Reply Image'
+            if (!/webp/.test(mime)) throw `balas stiker dengan caption *${prefix + command}*`
+            
+            let { webp2mp4File } = require('./lib/uploader')
+            let media = await conn.downloadAndSaveMediaMessage(quoted)
+            let webpToMp4 = await webp2mp4File(media)
+            await conn.sendMessage(m.chat, { video: { url: webpToMp4.result, caption: 'Convert Webp To Video' }, gifPlayback: true }, { quoted: m })
+            await fs.unlinkSync(media)
+            }
+            break
 case 'play': case 'ytplay': {
 if (!text) throw `Example : ${prefix + command} story wa anime`
 
