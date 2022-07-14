@@ -468,7 +468,7 @@ if (!/image/.test(mime)) throw respond
  let dwnld = await conn.downloadAndSaveMediaMessage(quoted)
 let { TelegraPh } = require('./lib/uploader')
 let fatGans = await TelegraPh(dwnld)
-let canv = `https://api-conn.herokuapp.com/api/canvas/${command}?apikey=k1mimaru&url=${fatGans}`
+let canv = `https://api-kimimaru.herokuapp.com/api/canvas/${command}?apikey=k1mimaru&url=${fatGans}`
 let FaTiH = await conn.sendImageAsSticker(m.chat, canv, m, { packname: global.packname, author: global.auhor })
 await fs.unlinkSync(FaTiH)
  }
