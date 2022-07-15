@@ -1077,7 +1077,7 @@ let template = await generateWAMessageFromContent(m.chat, proto.Message.fromObje
 │ 「 LANGGANAN INFO 」
 │✙ 𝗡𝗢𝗠𝗢𝗥 : ${dataanu.nomor}
 │✙ 𝗣𝗔𝗞𝗘𝗧 : ${dataanu.paket}
-│✙ 𝗪𝗔𝗞𝗧𝗨 𝗠𝗨𝗟𝗔?? : ${dataanu.awal}
+│✙ 𝗪𝗔𝗞𝗧𝗨 𝗠𝗨𝗟𝗔𝗜 : ${dataanu.awal}
 │✙ 𝗪𝗔𝗞𝗧𝗨 𝗕𝗘𝗥𝗔𝗞𝗛𝗜𝗥 : ${dataanu.akir}
 └───────────┈ ⳹
 ┌───────────┈ ⳹
